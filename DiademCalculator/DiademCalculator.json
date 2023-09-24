@@ -1,0 +1,16 @@
+﻿{
+  "Author": "Infi, mudcrab2142",
+  "Description": "Calculates your current sessions points and scrip reward",
+  "InternalName": "DiademCalculator",
+  "Punchline":  "Yet another useful calculator~",
+  "Name": "Diadem Calculator",
+  "RepoUrl": "",
+  "Tags": [
+      "Plugin",
+      "Diadem",
+      "Calculator",
+      "Scrips",
+      "Points",
+      "Gathering"
+  ]
+}

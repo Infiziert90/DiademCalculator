@@ -1,5 +1,3 @@
-using System;
-
 namespace DiademCalculator.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]

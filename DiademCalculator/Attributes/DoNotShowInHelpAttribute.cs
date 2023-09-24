@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DiademCalculator
+namespace DiademCalculator.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class DoNotShowInHelpAttribute : Attribute
