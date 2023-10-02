@@ -6,7 +6,7 @@ public partial class ConfigWindow : Window, IDisposable
 {
     private Plugin Plugin;
 
-    public ConfigWindow(Plugin plugin) : base("Configuration##Diadem Calculator")
+    public ConfigWindow(Plugin plugin) : base("Configuration###DiademCalculator")
     {
         this.SizeConstraints = new WindowSizeConstraints
         {

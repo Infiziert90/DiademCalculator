@@ -1,3 +1,4 @@
+using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
 using static ImGuiNET.ImGuiWindowFlags;
 
@@ -17,7 +18,7 @@ public class MainWindow : Window, IDisposable
 
     private static readonly Vector2 IconSize = new(28, 28);
 
-    public MainWindow(Plugin plugin) : base("Inspector")
+    public MainWindow(Plugin plugin) : base("Inspector###DiademCalculator")
     {
         Plugin = plugin;
     }

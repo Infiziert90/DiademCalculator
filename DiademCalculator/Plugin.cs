@@ -1,11 +1,9 @@
 ﻿using System.Reflection;
-using Dalamud.Data;
 using Dalamud.Game;
-using Dalamud.Game.ClientState;
-using Dalamud.Game.Command;
 using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
 using DiademCalculator.Attributes;
 using DiademCalculator.Windows.Config;
 using DiademCalculator.Windows.Main;
@@ -15,12 +13,11 @@ namespace DiademCalculator
     public class Plugin : IDalamudPlugin
     {
         [PluginService] public static DalamudPluginInterface PluginInterface { get; private set; }  = null!;
-        [PluginService] public static CommandManager Commands { get; private set; }  = null!;
-        [PluginService] public static DataManager Data { get; private set; }  = null!;
-        [PluginService] public static ClientState ClientState { get; private set; }  = null!;
-        [PluginService] public static Framework Framework { get; private set; }  = null!;
+        [PluginService] public static ICommandManager Commands { get; private set; }  = null!;
+        [PluginService] public static IDataManager Data { get; private set; }  = null!;
+        [PluginService] public static IClientState ClientState { get; private set; }  = null!;
+        [PluginService] public static IFramework Framework { get; private set; }  = null!;
 
-        public string Name => "Diadem Calculator";
         public Configuration Configuration { get; init; }
 
         public readonly WindowSystem WindowSystem = new("Diadem Calculator");
@@ -55,7 +52,7 @@ namespace DiademCalculator
             Framework.Update += CalculatePoints;
         }
 
-        private void CalculatePoints(Framework framework)
+        private void CalculatePoints(IFramework framework)
         {
             if ((DateTime.Now - LastUpdate).TotalMilliseconds > 50)
             {

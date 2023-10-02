@@ -1,4 +1,6 @@
-﻿namespace DiademCalculator.Windows.Config;
+﻿using Dalamud.Interface.Utility;
+
+namespace DiademCalculator.Windows.Config;
 
 public partial class ConfigWindow
 {

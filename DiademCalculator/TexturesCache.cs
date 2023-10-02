@@ -1,3 +1,4 @@
+using Dalamud.Interface.Internal;
 using Dalamud.Utility;
 using ImGuiScene;
 using Lumina.Data.Files;
@@ -7,9 +8,9 @@ namespace DiademCalculator;
 //From: https://github.com/Tischel/ActionTimeline
 public class TexturesCache : IDisposable
 {
-    private readonly Dictionary<uint, TextureWrap> Cache = new();
+    private readonly Dictionary<uint, IDalamudTextureWrap> Cache = new();
 
-    public TextureWrap GetTextureFromIconId(uint iconId)
+    public IDalamudTextureWrap GetTextureFromIconId(uint iconId)
     {
         if (Cache.TryGetValue(iconId, out var texture))
         {
