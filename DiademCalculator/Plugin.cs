@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Dalamud.Game;
 using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Plugin;
@@ -17,6 +16,7 @@ namespace DiademCalculator
         [PluginService] public static IDataManager Data { get; private set; }  = null!;
         [PluginService] public static IClientState ClientState { get; private set; }  = null!;
         [PluginService] public static IFramework Framework { get; private set; }  = null!;
+        [PluginService] public static ITextureProvider Texture { get; private set; }  = null!;
 
         public Configuration Configuration { get; init; }
 
@@ -35,8 +35,6 @@ namespace DiademCalculator
         public Plugin()
         {
             Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
-
-            TexturesCache.Initialize();
 
             MainWindow = new MainWindow(this);
             ConfigWindow = new ConfigWindow(this);
@@ -86,7 +84,6 @@ namespace DiademCalculator
             PluginInterface.UiBuilder.OpenConfigUi -= OpenConfig;
 
             CommandManager.Dispose();
-            TexturesCache.Instance?.Dispose();
         }
 
         private void DrawUI() => WindowSystem.Draw();
