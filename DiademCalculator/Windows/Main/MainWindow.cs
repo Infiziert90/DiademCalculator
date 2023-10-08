@@ -18,7 +18,7 @@ public class MainWindow : Window, IDisposable
 
     private static readonly Vector2 IconSize = new(28, 28);
 
-    public MainWindow(Plugin plugin) : base("Inspector###DiademCalculator")
+    public MainWindow(Plugin plugin) : base("Inspector##DiademCalculator")
     {
         Plugin = plugin;
     }
