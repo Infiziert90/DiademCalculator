@@ -32,10 +32,9 @@ public partial class ConfigWindow
 
             if (ImGui.BeginChild("AboutBottomBar", new Vector2(0, 0), false, 0))
             {
-                // TODO Change after being accepted
                 ImGui.PushStyleColor(ImGuiCol.Button, ImGuiColors.ParsedBlue);
                 if (ImGui.Button("Discord Thread"))
-                    Dalamud.Utility.Util.OpenLink("https://canary.discord.com/channels/581875019861328007/1143510564165926992");
+                    Dalamud.Utility.Util.OpenLink("https://canary.discord.com/channels/581875019861328007/1170093883355582474");
                 ImGui.PopStyleColor();
 
                 ImGui.SameLine();
