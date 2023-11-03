@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Authors>Infi, mudcrab2142</Authors>
-		<Version>0.0.0.2</Version>
+		<Version>0.0.0.3</Version>
 		<Description>Calculates your current sessions points and scrip reward</Description>
 		<PackageProjectUrl>https://github.com/Infiziert90/DiademCalculator</PackageProjectUrl>
 	</PropertyGroup>
