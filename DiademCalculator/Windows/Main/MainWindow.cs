@@ -102,14 +102,22 @@ public class MainWindow : Window, IDisposable
             {
                 UpdateGrade();
             }
-            Helper.DrawScaledIcon(IconBTN, IconSize);
-            DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 1).First().Quantity);
+            var btn = DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 1);
+            var min = DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 0);
+            var fsh = DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 2);
 
-            Helper.DrawScaledIcon(IconMIN, IconSize);
-            DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 0).First().Quantity);
+            // This is to negate errors on startup
+            if (btn.Count() > 0 && min.Count() > 0 && fsh.Count() > 0)
+            {
+                Helper.DrawScaledIcon(IconBTN, IconSize);
+                DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 1).First().Quantity);
 
-            Helper.DrawScaledIcon(IconFSH, IconSize);
-            DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 2).First().Quantity);
+                Helper.DrawScaledIcon(IconMIN, IconSize);
+                DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 0).First().Quantity);
+
+                Helper.DrawScaledIcon(IconFSH, IconSize);
+                DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 2).First().Quantity);
+            }
         }
     }
 

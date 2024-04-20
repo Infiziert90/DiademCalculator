@@ -15,6 +15,11 @@ public partial class ConfigWindow
             changed |= ImGui.Checkbox("Show outside Firmament and Diadem", ref Plugin.Configuration.ShowOutsideFirmamentAndDiadem);
             changed |= ImGui.Checkbox("Achievement Mode", ref Plugin.Configuration.AchievementMode);
 
+            if (ImGui.Button("Achievement Mode Info"))
+            {
+                Plugin.InfoWindow.IsOpen = true;
+            }
+
             if (changed)
                 Plugin.Configuration.Save();
 
