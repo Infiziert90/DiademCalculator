@@ -60,7 +60,23 @@ public class MainWindow : Window, IDisposable
 
     public override void Draw()
     {
-        if (Grade == 5)
+        if (!Plugin.Configuration.AchievementMode)
+        {
+            Helper.DrawScaledIcon(IconBTN, IconSize);
+            DrawPoints((int)(DiademResources.BtnPoints));
+
+            Helper.DrawScaledIcon(IconMIN, IconSize);
+            DrawPoints((int)(DiademResources.MinPoints));
+
+            Helper.DrawScaledIcon(IconFSH, IconSize);
+            DrawPoints((int)(DiademResources.FshPoints));
+
+            ImGuiHelpers.ScaledDummy(10.0f);
+
+            Helper.DrawScaledIcon(IconScrip, IconSize);
+            DrawPoints(DiademResources.MinScrips + DiademResources.BtnScrips + DiademResources.FshScrips);
+        } 
+        else if (Grade == 5)
         {
             if (ImGui.Button("Points"))
             {
