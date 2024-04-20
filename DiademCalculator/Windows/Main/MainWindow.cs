@@ -15,6 +15,7 @@ public class MainWindow : Window, IDisposable
     private const int IconMIN = 62116;
     private const int IconBTN = 62117;
     private const int IconFSH = 62118;
+    private int Grade = 2;
 
     private static readonly Vector2 IconSize = new(28, 28);
 
@@ -45,21 +46,55 @@ public class MainWindow : Window, IDisposable
             Flags |= NoMouseInputs | NoInputs;
     }
 
+    private void UpdateGrade()
+    {
+        if ((Grade + 1) > 5)
+        {
+            Grade = 2;
+        }
+        else
+        {
+            Grade += 1;
+        }
+    }
+
     public override void Draw()
     {
-        Helper.DrawScaledIcon(IconBTN, IconSize);
-        DrawPoints(DiademResources.BtnPoints);
+        if (Grade == 5)
+        {
+            if (ImGui.Button("Points"))
+            {
+                UpdateGrade();
+            }
+            Helper.DrawScaledIcon(IconBTN, IconSize);
+            DrawPoints((int)(500000 - DiademResources.btn50K - DiademResources.BtnPoints));
 
-        Helper.DrawScaledIcon(IconMIN, IconSize);
-        DrawPoints(DiademResources.MinPoints);
+            Helper.DrawScaledIcon(IconMIN, IconSize);
+            DrawPoints((int)(500000 - DiademResources.min50K - DiademResources.MinPoints));
 
-        Helper.DrawScaledIcon(IconFSH, IconSize);
-        DrawPoints(DiademResources.FshPoints);
+            Helper.DrawScaledIcon(IconFSH, IconSize);
+            DrawPoints((int)(500000 - DiademResources.fsh50K - DiademResources.FshPoints));
 
-        ImGuiHelpers.ScaledDummy(10.0f);
+            ImGuiHelpers.ScaledDummy(10.0f);
 
-        Helper.DrawScaledIcon(IconScrip, IconSize);
-        DrawPoints( DiademResources.MinScrips + DiademResources.BtnScrips + DiademResources.FshScrips);
+            Helper.DrawScaledIcon(IconScrip, IconSize);
+            DrawPoints(DiademResources.MinScrips + DiademResources.BtnScrips + DiademResources.FshScrips);
+        }
+        else
+        {
+            if (ImGui.Button(String.Concat("Grade ", Grade.ToString())))
+            {
+                UpdateGrade();
+            }
+            Helper.DrawScaledIcon(IconBTN, IconSize);
+            DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 1).First().Quantity);
+
+            Helper.DrawScaledIcon(IconMIN, IconSize);
+            DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 0).First().Quantity);
+
+            Helper.DrawScaledIcon(IconFSH, IconSize);
+            DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 2).First().Quantity);
+        }
     }
 
     private static void DrawPoints(int count)
