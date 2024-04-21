@@ -83,13 +83,13 @@ public class MainWindow : Window, IDisposable
                 UpdateGrade();
             }
             Helper.DrawScaledIcon(IconBTN, IconSize);
-            DrawPoints((int)(500000 - DiademResources.btn50K - DiademResources.BtnPoints));
+            DrawPoints((int)(500000 - DiademResources.btn500K - DiademResources.BtnPoints));
 
             Helper.DrawScaledIcon(IconMIN, IconSize);
-            DrawPoints((int)(500000 - DiademResources.min50K - DiademResources.MinPoints));
+            DrawPoints((int)(500000 - DiademResources.min500K - DiademResources.MinPoints));
 
             Helper.DrawScaledIcon(IconFSH, IconSize);
-            DrawPoints((int)(500000 - DiademResources.fsh50K - DiademResources.FshPoints));
+            DrawPoints((int)(500000 - DiademResources.fsh500K - DiademResources.FshPoints));
 
             ImGuiHelpers.ScaledDummy(10.0f);
 
@@ -102,23 +102,49 @@ public class MainWindow : Window, IDisposable
             {
                 UpdateGrade();
             }
-            var btn = DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 1);
-            var min = DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 0);
-            var fsh = DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 2);
 
-            // This is to negate errors on startup
-            if (btn.Count() > 0 && min.Count() > 0 && fsh.Count() > 0)
+            switch (Grade)
             {
-                Helper.DrawScaledIcon(IconBTN, IconSize);
-                DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 1).First().Quantity);
+                case 2:
+                    DrawValues(DiademResources.grade2BTN,
+                        DiademResources.grade2MIN,
+                        DiademResources.grade2FSH,
+                        DiademResources.grade2BTNAch,
+                        DiademResources.grade2MINAch,
+                        DiademResources.grade2FSHAch);
+                    break;
+                case 3:
+                    DrawValues(DiademResources.grade3BTN,
+                        DiademResources.grade3MIN,
+                        DiademResources.grade3FSH,
+                        DiademResources.grade3BTNAch,
+                        DiademResources.grade3MINAch,
+                        DiademResources.grade3FSHAch);
+                    break;
+                case 4:
+                    DrawValues(DiademResources.grade4BTN,
+                        DiademResources.grade4MIN,
+                        DiademResources.grade4FSH,
+                        DiademResources.grade4BTNAch,
+                        DiademResources.grade4MINAch,
+                        DiademResources.grade4FSHAch);
+                    break;
 
-                Helper.DrawScaledIcon(IconMIN, IconSize);
-                DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 0).First().Quantity);
-
-                Helper.DrawScaledIcon(IconFSH, IconSize);
-                DrawPoints((int)DiademResources.diademGrades.Where(x => x.Grade == this.Grade && x.Preset == 2).First().Quantity);
             }
+
         }
+    }
+
+    private static void DrawValues(int btn, int min, int fsh, uint btnAch, uint minAch, uint fshAch)
+    {
+        Helper.DrawScaledIcon(IconBTN, IconSize);
+        DrawPoints(50000 - (int)btnAch - btn);
+
+        Helper.DrawScaledIcon(IconMIN, IconSize);
+        DrawPoints(50000 - (int)minAch - min);
+
+        Helper.DrawScaledIcon(IconFSH, IconSize);
+        DrawPoints(300 - (int)fshAch - fsh);
     }
 
     private static void DrawPoints(int count)

@@ -3,13 +3,6 @@ using FFXIVClientStructs.FFXIV.Client.Game.UI;
 
 namespace DiademCalculator;
 
-public class DiademGrade
-{
-    public int Grade;
-    public int Preset;
-    public uint Quantity;
-}
-
 public struct DiademResourceInfo
 {
     public readonly uint Id;
@@ -30,13 +23,15 @@ public struct DiademResourceInfo
 
 public static class DiademResources
 {
-    public static List<DiademGrade> diademGrades = new List<DiademGrade>();
     public static int MinPoints, BtnPoints, FshPoints;
     public static int MinScrips, BtnScrips, FshScrips;
-    public static uint grade2BTN, grade3BTN, grade4BTN = 0;
-    public static uint grade2MIN, grade3MIN, grade4MIN = 0;
-    public static uint grade2FSH, grade3FSH, grade4FSH = 0;
-    public static uint btn50K, min50K, fsh50K = 0;
+    public static int grade2BTN, grade3BTN, grade4BTN = 0;
+    public static int grade2MIN, grade3MIN, grade4MIN = 0;
+    public static int grade2FSH, grade3FSH, grade4FSH = 0;
+    public static uint grade2BTNAch, grade3BTNAch, grade4BTNAch = 0;
+    public static uint grade2MINAch, grade3MINAch, grade4MINAch = 0;
+    public static uint grade2FSHAch, grade3FSHAch, grade4FSHAch = 0;
+    public static uint btn500K, min500K, fsh500K = 0;
     public static uint currentAchievement;
 
     private static readonly List<DiademResourceInfo> MinerPreset = new()
@@ -172,84 +167,45 @@ public static class DiademResources
         new DiademResourceInfo(32907, 1, 126, 1078, 4) //Grade 4 Artisanal Skybuilders' Meganeura
     };
 
-    private static unsafe uint getAchievement(int presetToUse, int grade)
-    {
-        switch (presetToUse)
-        {
-            case 1:
-                switch (grade)
-                {
-                    case 2:
-                        return grade2BTN;
-                    case 3:
-                        return grade3BTN;
-                    default:
-                        return grade4BTN;
-                }
-            case 0:
-                switch (grade)
-                {
-                    case 2:
-                        return grade2MIN;
-                    case 3:
-                        return grade3MIN;
-                    default:
-                        return grade4MIN;
-                }
-            case 2:
-                switch (grade)
-                {
-                    case 2:
-                        return grade2FSH;
-                    case 3:
-                        return grade3FSH;
-                    default:
-                        return grade4FSH;
-                }
-            default:
-                return 0;
-        }
-    }
-
     private static unsafe void updateAchievements(uint achievementId, uint progress)
     {
         switch (achievementId)
         {
             case 2536:
-                grade2BTN = progress;
+                grade2BTNAch = progress;
                 break;
             case 2657:
-                grade3BTN = progress;
+                grade3BTNAch = progress;
                 break;
             case 2816:
-                grade4BTN = progress;
+                grade4BTNAch = progress;
                 break;
             case 2535:
-                grade2MIN = progress;
+                grade2MINAch = progress;
                 break;
             case 2656:
-                grade3MIN = progress;
+                grade3MINAch = progress;
                 break;
             case 2815:
-                grade4MIN = progress;
+                grade4MINAch = progress;
                 break;
             case 2537:
-                grade2FSH = progress;
+                grade2FSHAch = progress;
                 break;
             case 2658:
-                grade3FSH = progress;
+                grade3FSHAch = progress;
                 break;
             case 2817:
-                grade4FSH = progress;
+                grade4FSHAch = progress;
                 break;
             case 2515:
-                min50K = progress;
+                min500K = progress;
                 break;
             case 2518:
-                btn50K = progress;
+                btn500K = progress;
                 break;
             case 2521:
-                fsh50K = progress;
+                fsh500K = progress;
                 break;
         }
     }
@@ -257,6 +213,7 @@ public static class DiademResources
     public static unsafe void CalculatePoints(int presetToUse)
     {
         var uiState = UIState.Instance();
+        // Get Achievement Data and update if new achievement was opened
         var clickedAchievement = uiState->Achievement.ProgressCurrent;
         if (currentAchievement != clickedAchievement)
         {
@@ -277,46 +234,21 @@ public static class DiademResources
         };
 
         var (points, scrips) = (0, 0);
+        int[] grades = [0, 0, 0, 0] ;
         foreach (var item in preset)
         {
-            var count = manager->GetInventoryItemCount(item.Id, false, false, false) / item.Set;
-            points += count * item.PointsReward;
-            scrips += count * item.ScripsReward;
+            var count = manager->GetInventoryItemCount(item.Id, false, false, false);
+            points += (count / item.Set) * item.PointsReward;
+            scrips += (count / item.Set) * item.ScripsReward;
+            grades[item.Grade - 2] = grades[item.Grade - 2] + count - (count % item.Set);
         }
 
         _ = presetToUse switch
         {
-            0 => (MinPoints, MinScrips) = (points, scrips),
-            1 => (BtnPoints, BtnScrips) = (points, scrips),
-            2 => (FshPoints, FshScrips) = (points, scrips),
+            0 => (MinPoints, MinScrips, grade2MIN, grade3MIN, grade4MIN) = (points, scrips, grades[0], grades[1], grades[2]),
+            1 => (BtnPoints, BtnScrips, grade2BTN, grade3BTN, grade4BTN) = (points, scrips, grades[0], grades[1], grades[2]),
+            2 => (FshPoints, FshScrips, grade2FSH, grade3FSH, grade4FSH) = (points, scrips, grades[0], grades[1], grades[2]),
             _ => throw new NotImplementedException()
         };
-        List<DiademGrade> tempGrades = new List<DiademGrade>();
-        for (int i = 2; i < 6; i++)
-        {
-            if (manager == null)
-                return;
-            uint quantity = 0;
-            var baseval = getAchievement(presetToUse, i);
-            var maxpoints = presetToUse == 2 ? (uint)300 : (uint)50000;
-            quantity = maxpoints - baseval - (uint)preset.Where(x => x.Grade == i).Sum(x => {
-                var meow = manager->GetInventoryItemCount(x.Id, false, false, false);
-                return meow - (meow % x.Set);
-            });
-            DiademGrade x = new DiademGrade()
-            {
-                Grade = i,
-                Preset = presetToUse,
-                Quantity = quantity
-            };
-
-            switch (presetToUse)
-            {
-                default:
-                    tempGrades.Add(x);
-                    break;
-            }
-        }
-        diademGrades = diademGrades.Where(x => x.Preset != presetToUse).Concat(tempGrades).ToList();
     }
 }
