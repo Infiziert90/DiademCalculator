@@ -30,7 +30,7 @@ namespace DiademCalculator
         private DateTime LastUpdate;
         private int UpdatePresetIndex;
 
-        public const string Authors = "Infi";
+        public const string Authors = "Infi and ClassicRagu";
         public static readonly string Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown";
 
         public Plugin()

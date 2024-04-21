@@ -19,7 +19,7 @@ public partial class ConfigWindow
 
                 ImGui.TextUnformatted("Discord:");
                 ImGui.SameLine();
-                ImGui.TextColored(ImGuiColors.ParsedGold, "@infi");
+                ImGui.TextColored(ImGuiColors.ParsedGold, "@infi and @classicragu");
 
                 ImGui.TextUnformatted("Version:");
                 ImGui.SameLine();
@@ -47,7 +47,7 @@ public partial class ConfigWindow
                 ImGui.SameLine();
 
                 ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0.12549f, 0.74902f, 0.33333f, 0.6f));
-                if (ImGui.Button("Ko-Fi Tip"))
+                if (ImGui.Button("Ko-Fi Tip (Infi)"))
                     Dalamud.Utility.Util.OpenLink("https://ko-fi.com/infiii");
                 ImGui.PopStyleColor();
             }
