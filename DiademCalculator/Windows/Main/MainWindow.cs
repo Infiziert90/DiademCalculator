@@ -15,7 +15,7 @@ public class MainWindow : Window, IDisposable
     private const int IconMIN = 62116;
     private const int IconBTN = 62117;
     private const int IconFSH = 62118;
-    private int Grade = 2;
+    private int Grade = 5;
 
     private static readonly Vector2 IconSize = new(28, 28);
 
