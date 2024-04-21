@@ -48,7 +48,7 @@ public class MainWindow : Window, IDisposable
 
     private void UpdateGrade()
     {
-        if ((Grade + 1) > 5)
+        if (Grade > 4)
         {
             Grade = 2;
         }
