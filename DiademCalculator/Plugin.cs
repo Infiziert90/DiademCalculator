@@ -5,6 +5,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using DiademCalculator.Attributes;
 using DiademCalculator.Windows.Config;
+using DiademCalculator.Windows.Info;
 using DiademCalculator.Windows.Main;
 
 namespace DiademCalculator

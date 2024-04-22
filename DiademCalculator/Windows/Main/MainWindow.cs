@@ -6,7 +6,7 @@ namespace DiademCalculator.Windows.Main;
 
 public class MainWindow : Window, IDisposable
 {
-    private Plugin Plugin;
+    private readonly Plugin Plugin;
 
     private const int TerritoryFirmament = 886;
     private const int TerritoryDiadem = 939;

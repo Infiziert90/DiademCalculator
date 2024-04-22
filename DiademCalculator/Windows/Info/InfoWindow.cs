@@ -2,7 +2,7 @@ using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
 using static ImGuiNET.ImGuiWindowFlags;
 
-namespace DiademCalculator.Windows.Main;
+namespace DiademCalculator.Windows.Info;
 
 public class InfoWindow : Window, IDisposable
 {
@@ -10,7 +10,6 @@ public class InfoWindow : Window, IDisposable
 
     public InfoWindow(Plugin plugin) : base("Achievement Mode Info##DiademCalculator")
     {
-
         this.Plugin = plugin;
     }
 

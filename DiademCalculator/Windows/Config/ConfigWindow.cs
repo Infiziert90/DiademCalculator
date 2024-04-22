@@ -4,7 +4,7 @@ namespace DiademCalculator.Windows.Config;
 
 public partial class ConfigWindow : Window, IDisposable
 {
-    private Plugin Plugin;
+    private readonly Plugin Plugin;
 
     public ConfigWindow(Plugin plugin) : base("Configuration##DiademCalculator")
     {
