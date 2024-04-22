@@ -1,4 +1,4 @@
-﻿using Dalamud.Configuration;
+using Dalamud.Configuration;
 
 namespace DiademCalculator
 {
@@ -9,6 +9,7 @@ namespace DiademCalculator
         public float BackgroundAlpha = 1;
         public bool ShowOutsideFirmamentAndDiadem;
         public bool LockWindow;
+        public bool AchievementMode;
 
         public void Save()
         {

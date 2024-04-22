@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Plugin;
@@ -23,6 +23,7 @@ namespace DiademCalculator
         public readonly WindowSystem WindowSystem = new("Diadem Calculator");
         public ConfigWindow ConfigWindow { get; init; }
         public MainWindow MainWindow { get; init; }
+        public InfoWindow InfoWindow { get; init; }
 
         private readonly PluginCommandManager<Plugin> CommandManager;
 
@@ -30,6 +31,7 @@ namespace DiademCalculator
         private int UpdatePresetIndex;
 
         public const string Authors = "Infi";
+        public const string Contributors = "ClassicRagu";
         public static readonly string Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown";
 
         public Plugin()
@@ -38,9 +40,11 @@ namespace DiademCalculator
 
             MainWindow = new MainWindow(this);
             ConfigWindow = new ConfigWindow(this);
+            InfoWindow = new InfoWindow(this);
 
             WindowSystem.AddWindow(MainWindow);
             WindowSystem.AddWindow(ConfigWindow);
+            WindowSystem.AddWindow(InfoWindow);
 
             CommandManager = new PluginCommandManager<Plugin>(this, Commands);
 
@@ -79,6 +83,7 @@ namespace DiademCalculator
 
             ConfigWindow.Dispose();
             MainWindow.Dispose();
+            InfoWindow.Dispose();
 
             PluginInterface.UiBuilder.Draw -= DrawUI;
             PluginInterface.UiBuilder.OpenConfigUi -= OpenConfig;
@@ -88,5 +93,6 @@ namespace DiademCalculator
 
         private void DrawUI() => WindowSystem.Draw();
         public void OpenConfig() => ConfigWindow.IsOpen = true;
+        public void OpenInfo() => InfoWindow.IsOpen = true;
     }
 }

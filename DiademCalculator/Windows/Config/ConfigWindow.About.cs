@@ -1,4 +1,4 @@
-﻿using Dalamud.Interface.Utility;
+using Dalamud.Interface.Utility;
 
 namespace DiademCalculator.Windows.Config;
 
@@ -21,6 +21,10 @@ public partial class ConfigWindow
                 ImGui.SameLine();
                 ImGui.TextColored(ImGuiColors.ParsedGold, "@infi");
 
+                ImGui.TextUnformatted("Contributors:");
+                ImGui.SameLine();
+                ImGui.TextColored(ImGuiColors.ParsedPink, Plugin.Contributors);
+
                 ImGui.TextUnformatted("Version:");
                 ImGui.SameLine();
                 ImGui.TextColored(ImGuiColors.ParsedOrange, Plugin.Version);
@@ -34,7 +38,7 @@ public partial class ConfigWindow
             {
                 ImGui.PushStyleColor(ImGuiCol.Button, ImGuiColors.ParsedBlue);
                 if (ImGui.Button("Discord Thread"))
-                    Dalamud.Utility.Util.OpenLink("https://canary.discord.com/channels/581875019861328007/1170093883355582474");
+                    Dalamud.Utility.Util.OpenLink("https://discord.com/channels/581875019861328007/1170093883355582474");
                 ImGui.PopStyleColor();
 
                 ImGui.SameLine();
