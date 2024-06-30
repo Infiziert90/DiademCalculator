@@ -1,4 +1,3 @@
-using System.Reflection;
 using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Plugin;
@@ -12,7 +11,7 @@ namespace DiademCalculator
 {
     public class Plugin : IDalamudPlugin
     {
-        [PluginService] public static DalamudPluginInterface PluginInterface { get; private set; }  = null!;
+        [PluginService] public static IDalamudPluginInterface PluginInterface { get; private set; }  = null!;
         [PluginService] public static ICommandManager Commands { get; private set; }  = null!;
         [PluginService] public static IDataManager Data { get; private set; }  = null!;
         [PluginService] public static IClientState ClientState { get; private set; }  = null!;
@@ -30,10 +29,6 @@ namespace DiademCalculator
 
         private DateTime LastUpdate;
         private int UpdatePresetIndex;
-
-        public const string Authors = "Infi";
-        public const string Contributors = "ClassicRagu";
-        public static readonly string Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown";
 
         public Plugin()
         {
