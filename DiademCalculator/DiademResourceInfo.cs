@@ -109,7 +109,7 @@ public static class DiademResources
         new(32027, 5, 3, 13, 5), //Grade 4 Skybuilders' Wheat
         new(32028, 5, 3, 13, 5), //Grade 4 Skybuilders' Gossamer Cotton Boll
         new(32029, 5, 3, 13, 5), //Grade 4 Skybuilders' Tortoise
-        new(32035, 5, 3, 13, 5), //Grade 4 Artisanal Skybuilders' Log
+        new(32035, 5, 3, 13, 4), //Grade 4 Artisanal Skybuilders' Log
         new(32036, 5, 3, 13, 4), //Grade 4 Artisanal Skybuilders' Raspberry
         new(32037, 5, 3, 13, 4), //Grade 4 Artisanal Skybuilders' Caiman
         new(32038, 5, 3, 13, 4), //Grade 4 Artisanal Skybuilders' Cocoon
