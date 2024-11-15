@@ -75,7 +75,7 @@ public class MainWindow : Window, IDisposable
 
             Helper.DrawScaledIcon(IconScrip, IconSize);
             DrawPoints(DiademResources.MinScrips + DiademResources.BtnScrips + DiademResources.FshScrips);
-        } 
+        }
         else if (Grade == 5)
         {
             if (ImGui.Button("Points"))
@@ -83,13 +83,13 @@ public class MainWindow : Window, IDisposable
                 UpdateGrade();
             }
             Helper.DrawScaledIcon(IconBTN, IconSize);
-            DrawPoints((int)(500000 - DiademResources.btn500K - DiademResources.BtnPoints));
+            DrawPoints((int)(500000 - DiademResources.Btn500K - DiademResources.BtnPoints));
 
             Helper.DrawScaledIcon(IconMIN, IconSize);
-            DrawPoints((int)(500000 - DiademResources.min500K - DiademResources.MinPoints));
+            DrawPoints((int)(500000 - DiademResources.Min500K - DiademResources.MinPoints));
 
             Helper.DrawScaledIcon(IconFSH, IconSize);
-            DrawPoints((int)(500000 - DiademResources.fsh500K - DiademResources.FshPoints));
+            DrawPoints((int)(500000 - DiademResources.Fsh500K - DiademResources.FshPoints));
 
             ImGuiHelpers.ScaledDummy(10.0f);
 
@@ -106,28 +106,28 @@ public class MainWindow : Window, IDisposable
             switch (Grade)
             {
                 case 2:
-                    DrawValues(DiademResources.grade2BTN,
-                        DiademResources.grade2MIN,
-                        DiademResources.grade2FSH,
-                        DiademResources.grade2BTNAch,
-                        DiademResources.grade2MINAch,
-                        DiademResources.grade2FSHAch);
+                    DrawValues(DiademResources.Grade2Btn,
+                        DiademResources.Grade2Min,
+                        DiademResources.Grade2Fsh,
+                        DiademResources.Grade2BtnAch,
+                        DiademResources.Grade2MinAch,
+                        DiademResources.Grade2FshAch);
                     break;
                 case 3:
-                    DrawValues(DiademResources.grade3BTN,
-                        DiademResources.grade3MIN,
-                        DiademResources.grade3FSH,
-                        DiademResources.grade3BTNAch,
-                        DiademResources.grade3MINAch,
-                        DiademResources.grade3FSHAch);
+                    DrawValues(DiademResources.Grade3Btn,
+                        DiademResources.Grade3Min,
+                        DiademResources.Grade3Fsh,
+                        DiademResources.Grade3BtnAch,
+                        DiademResources.Grade3MinAch,
+                        DiademResources.Grade3FshAch);
                     break;
                 case 4:
-                    DrawValues(DiademResources.grade4BTN,
-                        DiademResources.grade4MIN,
-                        DiademResources.grade4FSH,
-                        DiademResources.grade4BTNAch,
-                        DiademResources.grade4MINAch,
-                        DiademResources.grade4FSHAch);
+                    DrawValues(DiademResources.Grade4Btn,
+                        DiademResources.Grade4Min,
+                        DiademResources.Grade4Fsh,
+                        DiademResources.Grade4BtnAch,
+                        DiademResources.Grade4MinAch,
+                        DiademResources.Grade4FshAch);
                     break;
 
             }
