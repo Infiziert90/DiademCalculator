@@ -35,7 +35,7 @@ namespace DiademCalculator
 
             MainWindow = new MainWindow(this);
             ConfigWindow = new ConfigWindow(this);
-            InfoWindow = new InfoWindow(this);
+            InfoWindow = new InfoWindow();
 
             WindowSystem.AddWindow(MainWindow);
             WindowSystem.AddWindow(ConfigWindow);
@@ -44,6 +44,7 @@ namespace DiademCalculator
             CommandManager = new PluginCommandManager<Plugin>(this, Commands);
 
             PluginInterface.UiBuilder.Draw += DrawUI;
+            PluginInterface.UiBuilder.OpenMainUi += OpenMain;
             PluginInterface.UiBuilder.OpenConfigUi += OpenConfig;
 
             Framework.Update += CalculatePoints;
@@ -67,7 +68,7 @@ namespace DiademCalculator
         [HelpMessage("Opens Diadem Calculator config menu")]
         public void Settings(string command, string args)
         {
-            ConfigWindow.IsOpen ^= true;
+            ConfigWindow.Toggle();
         }
 
         public void Dispose()
@@ -81,13 +82,14 @@ namespace DiademCalculator
             InfoWindow.Dispose();
 
             PluginInterface.UiBuilder.Draw -= DrawUI;
+            PluginInterface.UiBuilder.OpenMainUi -= OpenMain;
             PluginInterface.UiBuilder.OpenConfigUi -= OpenConfig;
 
             CommandManager.Dispose();
         }
 
         private void DrawUI() => WindowSystem.Draw();
-        public void OpenConfig() => ConfigWindow.IsOpen = true;
-        public void OpenInfo() => InfoWindow.IsOpen = true;
+        public void OpenMain() => MainWindow.Toggle();
+        public void OpenConfig() => ConfigWindow.Toggle();
     }
 }

@@ -1,6 +1,5 @@
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
-using static ImGuiNET.ImGuiWindowFlags;
 
 namespace DiademCalculator.Windows.Main;
 
@@ -41,9 +40,9 @@ public class MainWindow : Window, IDisposable
 
     public override void PreDraw()
     {
-        Flags = NoTitleBar | AlwaysAutoResize | NoScrollbar;
+        Flags = ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoScrollbar;
         if (Plugin.Configuration.LockWindow)
-            Flags |= NoMouseInputs | NoInputs;
+            Flags |= ImGuiWindowFlags.NoMove;
     }
 
     private void UpdateGrade()
@@ -63,13 +62,13 @@ public class MainWindow : Window, IDisposable
         if (!Plugin.Configuration.AchievementMode)
         {
             Helper.DrawScaledIcon(IconBTN, IconSize);
-            DrawPoints((int)(DiademResources.BtnPoints));
+            DrawPoints(DiademResources.BtnPoints);
 
             Helper.DrawScaledIcon(IconMIN, IconSize);
-            DrawPoints((int)(DiademResources.MinPoints));
+            DrawPoints(DiademResources.MinPoints);
 
             Helper.DrawScaledIcon(IconFSH, IconSize);
-            DrawPoints((int)(DiademResources.FshPoints));
+            DrawPoints(DiademResources.FshPoints);
 
             ImGuiHelpers.ScaledDummy(10.0f);
 
@@ -79,9 +78,8 @@ public class MainWindow : Window, IDisposable
         else if (Grade == 5)
         {
             if (ImGui.Button("Points"))
-            {
                 UpdateGrade();
-            }
+
             Helper.DrawScaledIcon(IconBTN, IconSize);
             DrawPoints((int)(500000 - DiademResources.Btn500K - DiademResources.BtnPoints));
 
@@ -98,10 +96,8 @@ public class MainWindow : Window, IDisposable
         }
         else
         {
-            if (ImGui.Button(String.Concat("Grade ", Grade.ToString())))
-            {
+            if (ImGui.Button(string.Concat("Grade ", Grade.ToString())))
                 UpdateGrade();
-            }
 
             switch (Grade)
             {

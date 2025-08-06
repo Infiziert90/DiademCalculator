@@ -1,3 +1,4 @@
+using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 
 namespace DiademCalculator.Windows.Config;
@@ -8,7 +9,7 @@ public partial class ConfigWindow : Window, IDisposable
 
     public ConfigWindow(Plugin plugin) : base("Configuration##DiademCalculator")
     {
-        this.SizeConstraints = new WindowSizeConstraints
+        SizeConstraints = new WindowSizeConstraints
         {
             MinimumSize = new Vector2(300, 200),
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
@@ -21,12 +22,12 @@ public partial class ConfigWindow : Window, IDisposable
 
     public override void Draw()
     {
-        if (ImGui.BeginTabBar("##ConfigTabBar"))
-        {
-            Settings();
+        using var tabBar = ImRaii.TabBar("##ConfigTabBar");
+        if (!tabBar.Success)
+            return;
 
-            About();
-        }
-        ImGui.EndTabBar();
+        Settings();
+
+        About();
     }
 }

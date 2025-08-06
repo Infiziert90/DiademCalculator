@@ -1,21 +1,18 @@
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
-using static ImGuiNET.ImGuiWindowFlags;
 
 namespace DiademCalculator.Windows.Info;
 
 public class InfoWindow : Window, IDisposable
 {
-    private Plugin Plugin;
-
-    public InfoWindow(Plugin plugin) : base("Achievement Mode Info##DiademCalculator")
+    public InfoWindow() : base("Achievement Mode Info##DiademCalculator")
     {
-        this.Plugin = plugin;
+
     }
 
     public override void PreDraw()
     {
-        Flags = AlwaysAutoResize | NoScrollbar;
+        Flags = ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoScrollbar;
     }
 
     public void Dispose() { }

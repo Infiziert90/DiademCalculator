@@ -1,4 +1,5 @@
 using Dalamud.Interface.Utility;
+using Dalamud.Interface.Utility.Raii;
 
 namespace DiademCalculator.Windows.Config;
 
@@ -8,10 +9,14 @@ public partial class ConfigWindow
 
     private static void About()
     {
-        if (ImGui.BeginTabItem("About"))
+        using var tabItem = ImRaii.TabItem("About");
+        if (!tabItem.Success)
+            return;
+
+        var buttonHeight = Helper.CalculateChildHeight();
+        using (var contentChild = ImRaii.Child("Content", new Vector2(0, -buttonHeight)))
         {
-            var buttonHeight = ImGui.CalcTextSize("RRRR").Y + (20.0f * ImGuiHelpers.GlobalScale);
-            if (ImGui.BeginChild("AboutContent", new Vector2(0, -buttonHeight)))
+            if (contentChild)
             {
                 ImGuiHelpers.ScaledDummy(5.0f);
 
@@ -31,35 +36,37 @@ public partial class ConfigWindow
                 ImGui.SameLine();
                 ImGui.TextColored(ImGuiColors.ParsedOrange, Plugin.PluginInterface.Manifest.AssemblyVersion.ToString());
             }
-            ImGui.EndChild();
+        }
 
-            ImGui.Separator();
-            ImGuiHelpers.ScaledDummy(1.0f);
+        ImGui.Separator();
+        ImGuiHelpers.ScaledDummy(Helper.SeparatorPadding);
 
-            if (ImGui.BeginChild("AboutBottomBar", new Vector2(0, 0), false, 0))
+        using (var bottomChild = ImRaii.Child("Bottom", Vector2.Zero))
+        {
+            if (bottomChild.Success)
             {
-                ImGui.PushStyleColor(ImGuiCol.Button, ImGuiColors.ParsedBlue);
-                if (ImGui.Button("Discord Thread"))
-                    Dalamud.Utility.Util.OpenLink("https://discord.com/channels/581875019861328007/1170093883355582474");
-                ImGui.PopStyleColor();
+                using (ImRaii.PushColor(ImGuiCol.Button, ImGuiColors.ParsedBlue))
+                {
+                    if (ImGui.Button("Discord Thread"))
+                        Dalamud.Utility.Util.OpenLink("https://discord.com/channels/581875019861328007/1170093883355582474");
+                }
 
                 ImGui.SameLine();
 
-                ImGui.PushStyleColor(ImGuiCol.Button, ImGuiColors.DPSRed);
-                if (ImGui.Button("Issues"))
-                    Dalamud.Utility.Util.OpenLink("https://github.com/Infiziert90/DiademCalculator/issues");
-                ImGui.PopStyleColor();
+                using (ImRaii.PushColor(ImGuiCol.Button, ImGuiColors.DPSRed))
+                {
+                    if (ImGui.Button("Issues"))
+                        Dalamud.Utility.Util.OpenLink("https://github.com/Infiziert90/DiademCalculator/issues");
+                }
 
                 ImGui.SameLine();
 
-                ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0.12549f, 0.74902f, 0.33333f, 0.6f));
-                if (ImGui.Button("Ko-Fi Tip"))
-                    Dalamud.Utility.Util.OpenLink("https://ko-fi.com/infiii");
-                ImGui.PopStyleColor();
+                using (ImRaii.PushColor(ImGuiCol.Button, new Vector4(0.12549f, 0.74902f, 0.33333f, 0.6f)))
+                {
+                    if (ImGui.Button("Ko-Fi Tip"))
+                        Dalamud.Utility.Util.OpenLink("https://ko-fi.com/infiii");
+                }
             }
-            ImGui.EndChild();
-
-            ImGui.EndTabItem();
         }
     }
 }
